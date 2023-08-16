@@ -1,0 +1,66 @@
+from typing import List
+mod = 10**9 + 7
+def countPartitions(n: int, d: int, arr: List[int]) -> int:
+    tot = sum(arr)
+    if (tot+d)<0 or (tot+d)%2==1 or n==1:
+        return 0
+
+    k = (tot+d)//2
+
+    dp = [[0]*(k+1) for i in range(n+1)]
+
+        
+
+    for i in range(n+1):
+
+        for j in range(k+1):
+
+            if i==0: dp[i][j]=0
+
+            if j==0: dp[i][j]=1
+
+        
+
+    for i in range(1,n+1):
+
+        for j in range(k+1):
+
+            if arr[i-1]<=j:
+
+                dp[i][j] = (dp[i-1][j]+dp[i-1][j-arr[i-1]])%mod
+
+            else:
+
+                dp[i][j]=dp[i-1][j]
+
+    return dp[n][k]
+
+# def countPartitions(n: int, d: int, arr: List[int]) -> int:
+#     ts = 0
+
+#     ans = 0
+
+
+#     for i in range(n):
+#         ts += arr[i]
+
+  
+#     for mask in range(1 << n):
+
+      
+#         cs = 0
+
+#         for j in range(n):
+
+            
+#             if (mask & (1 << j)):
+#                 cs += arr[j]
+
+      
+#         os = ts - cs
+
+        
+#         if (cs - os == d):
+#             ans = (ans + 1) % mod
+
+#     return ans
