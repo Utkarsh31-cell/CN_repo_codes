@@ -1,0 +1,79 @@
+#one bisect function exist in python which is used for upper bound and lower bound finiding 
+# to understand bisect refer this problem : https://www.geeksforgeeks.org/count-pairs-with-given-sum/
+from sys import stdin
+import sys 
+import bisect
+sys.setrecursionlimit(10**7)
+
+def longestIncreasingSubsequence(arr, n):
+    ans=[]
+    ans.append(arr[0])
+ 
+    for i in range(1,n):
+
+        if (arr[i] > ans[-1]):
+            ans.append(arr[i]);
+        else:
+            low = bisect.bisect_left(ans,arr[i],0,len(ans))
+            low=max(0,low)
+            #print(low)
+            ans[low] = arr[i];
+        
+    
+ 
+  
+    return len(ans)
+
+ 
+ 
+# def longestIncreasingSubsequence(arr, n):
+ 
+#     dp = [[-1 for i in range(n + 1)]for j in range(n + 1)]
+#     return f(0, -1, n, arr, dp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#taking inpit using fast I/O
+def takeInput() :
+    n = int(input())
+
+    if n==0 :
+        return list(), n
+        
+    arr = list(map(int, stdin.readline().strip().split(" ")))
+
+    return arr, n
+
+
+#main
+arr, n = takeInput()
+print(longestIncreasingSubsequence(arr, n))
